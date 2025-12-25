@@ -49,12 +49,25 @@ if user_input:
     Question: {user_input}
     Answer:
     """
-
-    # ✅ RESULT IS DEFINED HERE (this fixes the error)
+    with st.spinner("SakhiAI soch rahi hai… 🤔"):
     result = query({"inputs": prompt})
-    if isinstance(result, list) and "generated_text" in result[0]:
-        reply = result[0]["generated_text"]
-    elif isinstance(result, dict) and result.get("error"):
-        reply = "Main thodi der mein ready ho jaungi 😊 please 20–30 seconds baad phir poochna."
-    else:
-        reply = "Ek second… main response prepare kar rahi hoon 😊 thodi der baad phir try karte hain."
+
+# Handle Hugging Face responses properly
+if isinstance(result, list) and result and "generated_text" in result[0]:
+    reply = result[0]["generated_text"]
+
+elif isinstance(result, dict) and result.get("error"):
+    reply = (
+        "Main thodi der mein ready ho jaungi 😊 "
+        "Model load ho raha hai, 30–60 seconds baad phir try karo."
+    )
+
+else:
+    reply = (
+        "Ek chhota sa wait lagega 😊 "
+        "Free AI model thoda slow hota hai. Thodi der baad phir poochna."
+    )
+
+    
+
+   
