@@ -10,7 +10,7 @@ st.write(
 )
 
 # ---------------- HUGGING FACE CONFIG ----------------
-API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-base"
+API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill"
 
 HF_TOKEN = st.secrets["HF_TOKEN"]   # MUST exist in Secrets
 HEADERS = {
