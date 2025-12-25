@@ -20,11 +20,11 @@ def query(payload):
     response = requests.post(API_URL, headers=HEADERS, json=payload)
     return response.json()
 
-# Session state for messages
+# Session state
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display previous messages
+# Show previous messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
@@ -38,16 +38,27 @@ if user_input:
     with st.chat_message("user"):
         st.markdown(user_input)
 
-    # ✅ CORRECT PROMPT (millennial mom tone)
+    # Prompt (millennial mom tone)
     prompt = f"""
     You are SakhiAI, a friendly assistant designed for Indian millennial mothers.
     Your tone is warm, modern, respectful, and supportive — like a helpful saheli.
-    Speak in simple Hinglish (Hindi + English).
-    Avoid words like "beta", "baccha", or overly parental language.
-    Be practical, calm, and comforting.
+    Speak in simple Hinglish.
+    Avoid words like "beta" or overly parental language.
+    Be practical and clear.
 
     Question: {user_input}
     Answer:
     """
 
-    result
+    # ✅ RESULT IS DEFINED HERE (this fixes the error)
+    result = query({"inputs": prompt})
+
+    if isinstance(result, list) and "generated_text" in result[0]:
+        reply = result[0]["generated_text"]
+    else:
+        reply = "Lagta hai thoda network slow hai 😅 thodi der baad phir try karte hain."
+
+    # Store assistant message
+    st.session_state.messages.append({"role": "assistant", "content": reply})
+    with st.chat_message("assistant"):
+        st.markdown(reply)
