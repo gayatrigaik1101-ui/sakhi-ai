@@ -50,7 +50,7 @@ if user_input:
     Answer:
     """
     with st.spinner("SakhiAI soch rahi hai… 🤔"):
-    result = query({"inputs": prompt})
+        result = query({"inputs": prompt})
 
 # Handle Hugging Face responses properly
 if isinstance(result, list) and result and "generated_text" in result[0]:
