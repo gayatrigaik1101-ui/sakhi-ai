@@ -54,9 +54,9 @@ if user_input:
     result = query({"inputs": prompt})
 
    if isinstance(result, list) and "generated_text" in result[0]:
-    reply = result[0]["generated_text"]
-elif isinstance(result, dict) and result.get("error"):
-    reply = "Main thodi der mein ready ho jaungi 😊 please 20–30 seconds baad phir poochna."
-else:
-    reply = "Ek second… main response prepare kar rahi hoon 😊 thodi der baad phir try karte hain."
+       reply = result[0]["generated_text"]
+   elif isinstance(result, dict) and result.get("error"):
+       reply = "Main thodi der mein ready ho jaungi 😊 please 20–30 seconds baad phir poochna."
+   else:
+       reply = "Ek second… main response prepare kar rahi hoon 😊 thodi der baad phir try karte hain."
 
